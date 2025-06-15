@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Como você se sente hoje?</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container sentimento-container">
+    <h1>Como Você Está Se Sentindo Hoje?</h1>
+
+    <div class="carinhas">
+      <button class="sentimento-button" onclick="selecionarSentimento('😊')">😊</button>
+      <button class="sentimento-button" onclick="selecionarSentimento('😢')">😢</button>
+      <button class="sentimento-button" onclick="selecionarSentimento('😠')">😠</button>
+      <button class="sentimento-button" onclick="selecionarSentimento('😌')">😌</button>
+      <button class="sentimento-button" onclick="selecionarSentimento('😕')">😕</button>
+    </div>
+
+    <textarea id="descricaoSentimento" rows="4" placeholder="Escreva como você está se sentindo..."></textarea>
+
+    <button onclick="enviarSentimento()">Enviar</button>
+
+    <h2>Sentimentos Salvos</h2>
+    <ul id="listaSentimentos"></ul>
+
+    <a href="painel.html" class="voltar">Voltar ao painel</a>
+  </div>
+
+<script>
+  let sentimentoSelecionado = "";
+
+  function selecionarSentimento(emoji) {
+    sentimentoSelecionado = emoji;
+    // Opcional: destaque o botão selecionado
+    document.querySelectorAll('.sentimento-button').forEach(btn => {
+      btn.style.border = (btn.textContent === emoji) ? '3px solid #7a1fa2' : 'none';
+    });
+  }
+
+  function carregarSentimentos() {
+    const lista = document.getElementById('listaSentimentos');
+    lista.innerHTML = '';
+    const sentimentos = JSON.parse(localStorage.getItem('sentimentos') || '[]');
+    sentimentos.forEach((item, index) => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${item.emoji} - ${item.texto}</span> <button onclick="removerSentimento(${index})">&times;</button>`;
+      lista.appendChild(li);
+    });
+  }
+
+  function enviarSentimento() {
+    const texto = document.getElementById("descricaoSentimento").value.trim();
+    if (!sentimentoSelecionado) {
+      alert("Por favor, selecione uma carinha que represente seu sentimento.");
+      return;
+    }
+    if (texto.length < 5) {
+      alert("Por favor, escreva um pouco mais sobre como você está se sentindo.");
+      return;
+    }
+
+    const sentimentos = JSON.parse(localStorage.getItem('sentimentos') || '[]');
+    sentimentos.push({ emoji: sentimentoSelecionado, texto: texto });
+    localStorage.setItem('sentimentos', JSON.stringify(sentimentos));
+
+    // Limpar entrada e seleção
+    document.getElementById("descricaoSentimento").value = '';
+    sentimentoSelecionado = '';
+    document.querySelectorAll('.sentimento-button').forEach(btn => btn.style.border = 'none');
+
+    carregarSentimentos();
+  }
+
+  function removerSentimento(index) {
+    const sentimentos = JSON.parse(localStorage.getItem('sentimentos') || '[]');
+    sentimentos.splice(index, 1);
+    localStorage.setItem('sentimentos', JSON.stringify(sentimentos));
+    carregarSentimentos();
+  }
+
+  // Carregar sentimentos ao abrir a página
+  window.onload = carregarSentimentos;
+</script>
+</body>
+</html>

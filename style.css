@@ -1,0 +1,257 @@
+/* Fonte amigável */
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Comfortaa', cursive;
+  background: linear-gradient(to bottom right, #fceeff, #f6edff);
+  color: #6a359c;
+}
+
+/* Container central */
+.container {
+  max-width: 1000px;
+  margin: 4rem auto;
+  padding: 2rem;
+  background: #fff9ff;
+  border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(248, 190, 255, 0.3);
+  text-align: center;
+  border: 2px dashed #f3c7ff;
+}
+
+/* Títulos com detalhes */
+h1 {
+  font-size: 2.2rem;
+  color: #b74acc;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+h1::before {
+  content: '✨ ';
+  font-size: 1.5rem;
+}
+
+h2 {
+  color: #d77ee4;
+  font-size: 1.4rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Campos de entrada fofos */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border: 2px solid #f3d2fa;
+  border-radius: 20px;
+  background-color: #fff0fb;
+  font-size: 1rem;
+  color: #6a359c;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+  transition: 0.3s;
+  box-shadow: inset 0 2px 4px rgba(245, 210, 255, 0.4);
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #c28cd9;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #e88efc;
+  box-shadow: 0 0 6px #f6bfff;
+}
+
+/* Botões super fofos */
+button,
+.botao-voltar,
+.btn-navegacao,
+.painel-btn,
+.sentimento-button,
+.voltar {
+  width: 100%;
+  background-color: #ffeb94;
+  color: #6a359c;
+  border: none;
+  padding: 1rem;
+  border-radius: 30px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 223, 129, 0.4);
+  transition: all 0.3s ease;
+}
+
+button:hover,
+.botao-voltar:hover,
+.btn-navegacao:hover,
+.painel-btn:hover,
+.sentimento-button:hover,
+.voltar:hover {
+  background-color: #fff1b8;
+  transform: scale(1.03);
+}
+
+/* Cartões com fofura */
+.support-card,
+.psicologo-card,
+.nao-esta-sozinho-info,
+.sentimento-resposta,
+.user-info p,
+.conecte-container p {
+  background: #ffeaff;
+  padding: 1.4rem;
+  border-radius: 25px;
+  box-shadow: 0 6px 14px rgba(240, 192, 255, 0.2);
+  border: 1px solid #f8d6ff;
+  transition: 0.2s ease;
+}
+
+.support-card:hover,
+.psicologo-card:hover {
+  transform: scale(1.02);
+}
+
+/* Imagens com moldura */
+.support-card img,
+.psicologo-card img {
+  width: 100%;
+  border-radius: 20px;
+  border: 3px solid #f8dcff;
+  margin-bottom: 0.8rem;
+}
+
+/* Navegação e seções */
+.navegacao,
+.botoes-painel,
+.support-cards,
+.nao-esta-sozinho-container,
+.sentimento-container,
+.psicologo-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* Carinhas */
+.carinhas {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Botão "X" para remover sentimentos - bonito e centralizado */
+#listaSentimentos li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 0.6rem 1rem;
+  background: #fff0fb;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(248, 190, 255, 0.3);
+  margin-bottom: 10px;
+}
+
+#listaSentimentos li button {
+  background: #ff6b6b;
+  border: none;
+  color: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 18px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s ease;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-left: 15px;
+}
+
+#listaSentimentos li button:hover {
+  background: #ff3b3b;
+}
+
+/* Rodapé */
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-size: 0.9rem;
+  color: #b06ac5;
+}
+
+footer a {
+  color: #904ab2;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Título painel */
+.painel-titulo {
+  text-align: center;
+  font-size: 2rem;
+  margin-top: 30px;
+  color: #8b2bbd;
+}
+
+/* Botão perfil */
+.perfil-botao {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: #ffde76;
+  color: #6a359c;
+  padding: 12px 18px;
+  border-radius: 999px;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Botões principais */
+.botoes-container {
+  max-width: 600px;
+  margin: 60px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.painel-botao {
+  width: 100%;
+  background-color: #ffde76;
+  color: #6a359c;
+  padding: 16px;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  text-decoration: none;
+  box-shadow: 0 4px 10px rgba(255, 222, 140, 0.5);
+  transition: all 0.3s ease;
+}
+
+.painel-botao:hover {
+  background-color: #fff0b0;
+  transform: scale(1.04);
+}

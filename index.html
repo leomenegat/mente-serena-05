@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mente Serena - Login</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Seja bem-vindo!</h2>
+        <div class="logo">Entre na sua consta ou crie um cadastro:</div>
+      
+        <div class="input-icon">
+      
+          <input type="email" id="email" placeholder="Usuário" />
+        </div>
+      
+        <div class="input-icon">
+  
+          <input type="password" id="password" placeholder="Senha" />
+        </div>
+      
+        <button onclick="login()">Entrar</button>
+        <button onclick="signup()">Cadastrar</button>
+      </div>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB41TXDzzdU7KqpfogLHZR-jbhw8E83B3g",
+      authDomain: "mente-serena-b31bf.firebaseapp.com",
+      databaseURL: "https://mente-serena-b31bf-default-rtdb.firebaseio.com",
+      projectId: "mente-serena-b31bf",
+      storageBucket: "mente-serena-b31bf.firebasestorage.app",
+      messagingSenderId: "1047645853095",
+      appId: "1:1047645853095:web:9d77a03de30332c05e9282",
+      measurementId: "G-TW8NX1TSC3"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          const uid = userCredential.user.uid;
+          firebase.database().ref('usuarios/' + uid + '/dadosPessoais').once('value').then(snapshot => {
+            if (snapshot.exists()) {
+              window.location.href = "painel.html";
+            } else {
+              window.location.href = "formulario.html";
+            }
+          });
+        })
+        .catch(error => alert(`Usuário ou senha incorretos`));
+    }
+
+    function signup() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          window.location.href = "formulario.html";
+        })
+        .catch(error => alert(`Usuário ou senha incorretos`));
+    }
+  </script>
+</body>
+</html>

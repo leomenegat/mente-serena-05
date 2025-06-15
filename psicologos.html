@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Psicólogos perto de você</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Psicólogos perto de você</h1>
+
+    <div class="support-cards">
+      <div class="support-card">
+        <h2>Dra. Amanda Oliveira</h2>
+        <p>Psicóloga Clínica</p>
+        <p>Especialista em ansiedade e relacionamentos</p>
+      </div>
+
+      <div class="support-card">
+        <h2>Dr. Pedro Lima</h2>
+        <p>Psicólogo Cognitivo-Comportamental</p>
+        <p>Atendimento presencial e online</p>
+      </div>
+
+      <div class="support-card">
+        <h2>Dra. Carla Mendes</h2>
+        <p>Psicóloga Infantil</p>
+        <p>Especializada em psicologia positiva</p>
+      </div>
+    </div>
+
+    <div class="map-container">
+      <iframe
+        id="mapa"
+        width="100%"
+        height="300"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src=""
+      ></iframe>
+    </div>
+
+    <a href="painel.html" class="botao-voltar">Voltar ao Painel</a>
+  </div>
+
+  <script>
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyB41TXDzzdU7KqpfogLHZR-jbhw8E83B3g",
+  authDomain: "mente-serena-b31bf.firebaseapp.com",
+  databaseURL: "https://mente-serena-b31bf-default-rtdb.firebaseio.com",
+  projectId: "mente-serena-b31bf",
+  storageBucket: "mente-serena-b31bf.firebasestorage.app",
+  messagingSenderId: "1047645853095",
+  appId: "1:1047645853095:web:9d77a03de30332c05e9282",
+  measurementId: "G-TW8NX1TSC3"
+};
+
+    firebase.initializeApp(firebaseConfig);
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+
+        // Agora acessa diretamente os dados do usuário
+        firebase.database().ref(`usuarios/${uid}/dadosPessoais`).once('value')
+          .then(snapshot => {
+            const dados = snapshot.val();
+
+            if (dados && dados.cep) {
+              const cep = dados.cep.trim();
+              const mapa = document.getElementById('mapa');
+              mapa.src = `https://www.google.com/maps?q=${cep},+Brasil&output=embed`;
+            } else {
+              alert("CEP não preenchido no perfil do usuário.");
+            }
+          })
+          .catch(error => {
+            console.error("Erro ao buscar dados:", error);
+            alert("Erro ao carregar os dados do usuário.");
+          });
+      } else {
+        alert("Usuário não autenticado.");
+        window.location.href = "formulario.html";
+      }
+    });
+  </script>
+</body>
+</html>

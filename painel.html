@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Painel - Mente Serena</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+</head>
+<body>
+  <header>
+    <h1 class="painel-titulo">Painel do Usuário</h1>
+    <a href="eu.html" class="perfil-botao">Eu</a>
+  </header>
+
+  <main>
+    <div class="botoes-container">
+      <a href="psicologos.html" class="painel-botao">Psicólogos perto de você</a>
+      <a href="voce-nao-esta-sozinho.html" class="painel-botao">Você não está sozinho</a>
+      <a href="como-voce-se-sente.html" class="painel-botao">Como você se sente hoje?</a>
+      <a href="conecte-se.html" class="painel-botao">Conecte-se à Mente Serena</a>
+    </div>
+  </main>
+
+  <script>
+    // Firebase Auth check
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (!user) {
+        window.location.href = "login.html";
+      }
+    });
+  </script>
+</body>
+</html>

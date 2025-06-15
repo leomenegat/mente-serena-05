@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Seus dados</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1>Seus Dados</h1>
+
+    <div class="user-info">
+      <p><strong>Nome:</strong> <span id="user-nome">Carregando...</span></p>
+      <p><strong>Email:</strong> <span id="user-email">Carregando...</span></p>
+      <p><strong>Idade:</strong> <span id="user-idade">Carregando...</span></p>
+      <p><strong>CPF:</strong> <span id="user-cpf">Carregando...</span></p>
+      <p><strong>CEP:</strong> <span id="user-cep">Carregando...</span></p>
+      <p><strong>Telefone:</strong> <span id="user-telefone">Carregando...</span></p>
+    
+    </div>
+
+    <a href="painel.html" class="botao-voltar">Voltar ao Painel</a>
+  </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB41TXDzzdU7KqpfogLHZR-jbhw8E83B3g",
+      authDomain: "mente-serena-b31bf.firebaseapp.com",
+      databaseURL: "https://mente-serena-b31bf-default-rtdb.firebaseio.com",
+      projectId: "mente-serena-b31bf",
+      storageBucket: "mente-serena-b31bf.appspot.com",
+      messagingSenderId: "1047645853095",
+      appId: "1:1047645853095:web:9d77a03de30332c05e9282",
+      measurementId: "G-TW8NX1TSC3"
+    };
+
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        const uid = user.uid;
+        firebase.database().ref('usuarios/' + uid + '/dadosPessoais').once('value').then(snapshot => {
+          const dados = snapshot.val();
+
+          document.getElementById('user-nome').textContent = dados?.nome || "Não preenchido";
+          document.getElementById('user-email').textContent = dados?.email || "Não preenchido";
+          document.getElementById('user-idade').textContent = dados?.idade || "Não preenchido";
+          document.getElementById('user-cpf').textContent = dados?.cpf || "Não preenchido";
+          document.getElementById('user-cep').textContent = dados?.cep || "Não preenchido";
+          document.getElementById('user-telefone').textContent = dados?.telefone || "Não preenchido";
+        }).catch(error => {
+          alert("Erro ao buscar dados: " + error.message);
+        });
+      } else {
+        alert("Usuário não autenticado. Redirecionando para login.");
+        window.location.href = "index.html";
+      }
+    });
+  </script>
+</body>
+</html>

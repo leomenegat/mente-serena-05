@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulário de Dados</title>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Preencha com seus dados</h2>
+    <form id="meuFormulario">
+      <label for="nome">Nome completo</label>
+      <input type="text" id="nome" name="nome" placeholder="Digite seu nome completo" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="exemplo@email.com" required>
+
+      <label for="idade">Idade</label>
+      <input type="number" id="idade" name="idade" placeholder="Sua idade" required>
+
+      <label for="cpf">CPF</label>
+      <input type="text" id="cpf" name="cpf" placeholder="Seu CPF" required>
+
+      <label for="cep">CEP</label>
+      <input type="text" id="cep" name="cep" placeholder="Seu CEP" required>
+
+      <label for="telefone">Telefone</label>
+      <input type="tel" id="telefone" name="telefone" placeholder="Seu telefone" required>
+
+      <button type="submit">Enviar</button>
+    </form>
+  </div>
+
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyB41TXDzzdU7KqpfogLHZR-jbhw8E83B3g",
+      authDomain: "mente-serena-b31bf.firebaseapp.com",
+      databaseURL: "https://mente-serena-b31bf-default-rtdb.firebaseio.com",
+      projectId: "mente-serena-b31bf",
+      storageBucket: "mente-serena-b31bf.appspot.com",
+      messagingSenderId: "1047645853095",
+      appId: "1:1047645853095:web:9d77a03de30332c05e9282",
+      measurementId: "G-TW8NX1TSC3"
+    };
+
+    // Inicializa o Firebase
+    if (!firebase.apps.length) {
+      firebase.initializeApp(firebaseConfig);
+    }
+
+    // Verifica se usuário está logado
+    firebase.auth().onAuthStateChanged(user => {
+      if (!user) {
+        alert("Usuário não autenticado. Redirecionando para login.");
+        window.location.href = "index.html";
+      }
+    });
+
+    // Lógica para salvar dados e redirecionar
+    document.getElementById('meuFormulario').addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const idade = document.getElementById('idade').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+      const cep = document.getElementById('cep').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+
+      const user = firebase.auth().currentUser;
+
+      if (user) {
+        const uid = user.uid;
+        firebase.database().ref('usuarios/' + uid + '/dadosPessoais').set({
+          nome: nome,
+          email: email,
+          idade: idade,
+          cpf: cpf,
+          cep: cep,
+          telefone: telefone
+        })
+        .then(() => {
+          console.log("Dados salvos com sucesso!");
+          window.location.href = "painel.html";
+        })
+        .catch(error => {
+          alert("Erro ao salvar os dados: " + error.message);
+        });
+      } else {
+        alert("Usuário não autenticado!");
+      }
+    });
+  </script>
+</body>
+</html>
