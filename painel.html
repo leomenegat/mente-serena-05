@@ -12,7 +12,7 @@
 <body>
   <header class="painel-header">
     <h1 class="painel-titulo">Menu</h1>
-    <a href="eu.html" class="painel-botao perfil-botao" aria-label="Perfil do usuário">👤</a>
+    <a href="eu.html" class="perfil-botao" aria-label="Perfil do usuário">👤</a>
   </header>
 
   <main>
@@ -25,7 +25,6 @@
   </main>
 
   <script>
-    // Firebase Auth check
     firebase.auth().onAuthStateChanged(function(user) {
       if (!user) {
         window.location.href = "login.html";
