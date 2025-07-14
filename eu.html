@@ -24,6 +24,8 @@
     </div>
 
     <a href="painel.html" class="botao-voltar">Voltar ao Painel</a>
+    <a onclick="editarDados()" class="botao-editar">Editar Meus Dados</a>
+    <a onclick="logout()" class="botao-sair">Sair</a>
   </div>
 
   <script>
@@ -62,6 +64,16 @@
         window.location.href = "index.html";
       }
     });
+    function editarDados() {
+  window.location.href = "formulario.html?edit=true";
+}
+
+function logout() {
+  firebase.auth().signOut().then(() => {
+    window.location.href = "index.html";
+  });
+}
+
   </script>
 </body>
 </html>
