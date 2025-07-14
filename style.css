@@ -70,42 +70,6 @@ textarea:focus {
   box-shadow: 0 0 6px #f6bfff;
 }
 
-/* Botões gerais */
-button,
-.botao-voltar,
-.botao-editar,
-.botao-sair,
-.btn-navegacao,
-.painel-btn,
-.sentimento-button,
-.voltar {
-  width: 100%;
-  background-color: #ffeb94;
-  color: #6a359c;
-  border: none;
-  padding: 1rem;
-  border-radius: 30px;
-  font-weight: bold;
-  font-size: 1rem;
-  cursor: pointer;
-  box-shadow: 0 6px 15px rgba(255, 223, 129, 0.4);
-  transition: all 0.3s ease;
-  margin-bottom: 1rem;
-  
-}
-
-button:hover,
-.botao-voltar:hover,
-.botao-editar:hover,
-.botao-sair:hover,
-.btn-navegacao:hover,
-.painel-btn:hover,
-.sentimento-button:hover,
-.voltar:hover {
-  background-color: #fff1b8;
-  transform: scale(1.03);
-}
-
 /* Cards */
 .support-card,
 .psicologo-card,
@@ -276,59 +240,58 @@ footer a:hover {
   transform: scale(1.04);
 }
 
-/* RESPONSIVIDADE PARA CELULAR */
-@media (max-width: 768px) {
-  .container {
-    margin: 2rem 1rem;
-    padding: 1.5rem;
-    border-radius: 20px;
+/* BOTÕES PADRÃO UNIFICADOS */
+
+.botoes-acoes {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  max-width: 400px;
+  margin: 2rem auto 0 auto;
+}
+
+.botoes-acoes .botao-acoes {
+  width: 100%;
+  padding: 1rem 0;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 223, 129, 0.4);
+  border: none;
+  text-align: center;
+  user-select: none;
+  transition: all 0.3s ease;
+  background-color: #ffeb94;
+  color: #6a359c;
+  display: inline-block;
+  text-decoration: none;
+  line-height: normal;
+}
+
+.botoes-acoes .botao-link {
+  display: inline-block;
+}
+
+.botoes-acoes .botao-acoes:hover {
+  background-color: #fff1b8;
+  transform: scale(1.03);
+}
+
+.botoes-acoes .botao-acoes:focus {
+  outline: 2px solid #b07de5;
+  outline-offset: 2px;
+}
+
+/* Responsividade para celular */
+@media (max-width: 480px) {
+  .botoes-acoes {
+    max-width: 100%;
+    padding: 0 1rem;
   }
 
-  h1 {
-    font-size: 1.8rem;
-  }
-
-  h2 {
-    font-size: 1.2rem;
-  }
-
-  input,
-  textarea,
-  button,
-  .painel-botao {
+  .botoes-acoes .botao-acoes {
     font-size: 1rem;
-    padding: 0.9rem;
-  }
-
-  .painel-titulo {
-    font-size: 1.5rem;
-  }
-
-  .perfil-botao {
-    top: 10px;
-    right: 10px;
-    padding: 10px 14px;
-    font-size: 0.9rem;
-  }
-
-  .carinhas {
-    flex-wrap: wrap;
-    gap: 0.5rem;
-  }
-
-  .sentimento-button {
-    width: 50px;
-    height: 50px;
-    font-size: 1.5rem;
-  }
-
-  #listaSentimentos li {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  #listaSentimentos li button {
-    margin-left: 0;
-    margin-top: 0.5rem;
+    padding: 0.9rem 0;
   }
 }
