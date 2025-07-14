@@ -5,6 +5,10 @@ body {
   font-family: 'Comfortaa', cursive;
   background: linear-gradient(to bottom right, #fceeff, #f6edff);
   color: #6a359c;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Container central */
@@ -15,19 +19,20 @@ body {
   background: #fff9ff;
   border-radius: 30px;
   box-shadow: 0 10px 30px rgba(248, 190, 255, 0.3);
-  text-align:center;
+  text-align: center;
   border: 2px dashed #f3c7ff;
 }
 
 /* Títulos */
-h1 {
+h1, .painel-titulo {
   font-size: 2.2rem;
   color: #b74acc;
   position: relative;
   margin-bottom: 1rem;
+  user-select: none;
 }
 
-h1::before {
+h1::before, .painel-titulo::before {
   content: '✨ ';
   font-size: 1.5rem;
 }
@@ -68,6 +73,83 @@ textarea:focus {
   outline: none;
   border-color: #e88efc;
   box-shadow: 0 0 6px #f6bfff;
+}
+
+/* Botões gerais (unificados) */
+button,
+.botao-voltar,
+.botao-editar,
+.botao-sair,
+.btn-navegacao,
+.painel-btn,
+.sentimento-button,
+.voltar,
+.painel-botao,
+.perfil-botao {
+  background-color: #ffeb94;
+  color: #6a359c;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 6px 15px rgba(255, 223, 129, 0.4);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  user-select: none;
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+button,
+.botao-voltar,
+.botao-editar,
+.botao-sair,
+.btn-navegacao,
+.painel-btn,
+.sentimento-button,
+.voltar {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  box-sizing: border-box;
+}
+
+.painel-botao {
+  width: 100%;
+  padding: 16px;
+  font-size: 1.2rem;
+  margin-bottom: 0;
+}
+
+.painel-botao:hover,
+.painel-botao:focus,
+button:hover,
+.botao-voltar:hover,
+.botao-editar:hover,
+.botao-sair:hover,
+.btn-navegacao:hover,
+.painel-btn:hover,
+.sentimento-button:hover,
+.voltar:hover,
+.perfil-botao:hover,
+.perfil-botao:focus {
+  background-color: #fff1b8;
+  transform: scale(1.04);
+  outline: none;
+}
+
+/* Botão perfil "Eu" - menor, redondo, só ícone */
+.perfil-botao {
+  width: 60px;
+  height: 60px;
+  padding: 0;
+  font-size: 2rem;
+  border-radius: 50%;
+  box-shadow: 0 6px 15px rgba(255, 223, 129, 0.4);
+  margin-left: 10px;
 }
 
 /* Cards */
@@ -197,51 +279,110 @@ footer a:hover {
   font-size: 2rem;
   margin-top: 30px;
   color: #8b2bbd;
+  user-select: none;
 }
 
-/* Botão perfil */
-.perfil-botao {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: #ffde76;
-  color: #6a359c;
-  padding: 12px 18px;
-  border-radius: 999px;
-  font-weight: bold;
-  text-decoration: none;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+/* Flex header para título + botão "Eu" */
+.painel-header {
+  width: 90%;
+  max-width: 600px;
+  margin: 2rem auto 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 /* Botões painel */
 .botoes-container {
   max-width: 600px;
-  margin: 60px auto;
+  margin: 3rem auto 4rem auto;
   display: flex;
   flex-direction: column;
   gap: 20px;
   align-items: center;
 }
 
-.painel-botao {
-  width: 100%;
-  background-color: #ffde76;
-  color: #6a359c;
-  padding: 16px;
-  border-radius: 30px;
-  font-size: 1.2rem;
-  text-decoration: none;
-  box-shadow: 0 4px 10px rgba(255, 222, 140, 0.5);
-  transition: all 0.3s ease;
+/* Responsividade para celular */
+@media (max-width: 768px) {
+  .painel-header {
+    width: 95%;
+    margin: 1.5rem auto 0 auto;
+  }
+
+  .painel-titulo {
+    font-size: 1.6rem;
+  }
+
+  .botoes-container {
+    max-width: 95%;
+    margin: 2rem auto 3rem auto;
+    gap: 15px;
+  }
+
+  .painel-botao {
+    font-size: 1rem;
+    padding: 14px;
+  }
+
+  .perfil-botao {
+    width: 50px;
+    height: 50px;
+    font-size: 1.6rem;
+  }
 }
 
-.painel-botao:hover {
-  background-color: #fff0b0;
-  transform: scale(1.04);
+/* Responsividade para celular pequeno */
+@media (max-width: 480px) {
+  body {
+    padding: 0 1rem;
+  }
+
+  .container {
+    margin: 2rem auto;
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+
+  h1, .painel-titulo {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  input,
+  textarea,
+  button,
+  .painel-botao {
+    font-size: 1rem;
+    padding: 0.9rem;
+  }
+
+  .carinhas {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .sentimento-button {
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+  }
+
+  #listaSentimentos li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #listaSentimentos li button {
+    margin-left: 0;
+    margin-top: 0.5rem;
+  }
 }
 
-/* BOTÕES PADRÃO UNIFICADOS */
-
+/* BOTÕES PADRÃO UNIFICADOS (ex: formulário, ações) */
 .botoes-acoes {
   display: flex;
   flex-direction: column;
@@ -281,17 +422,4 @@ footer a:hover {
 .botoes-acoes .botao-acoes:focus {
   outline: 2px solid #b07de5;
   outline-offset: 2px;
-}
-
-/* Responsividade para celular */
-@media (max-width: 480px) {
-  .botoes-acoes {
-    max-width: 100%;
-    padding: 0 1rem;
-  }
-
-  .botoes-acoes .botao-acoes {
-    font-size: 1rem;
-    padding: 0.9rem 0;
-  }
 }
