@@ -20,12 +20,14 @@
       <p><strong>CPF:</strong> <span id="user-cpf">Carregando...</span></p>
       <p><strong>CEP:</strong> <span id="user-cep">Carregando...</span></p>
       <p><strong>Telefone:</strong> <span id="user-telefone">Carregando...</span></p>
-    
     </div>
 
-    <a href="painel.html" class="botao-voltar">Voltar ao Painel</a>
-    <a onclick="editarDados()" class="botao-editar">Editar Meus Dados</a>
-    <a onclick="logout()" class="botao-sair">Sair</a>
+    <!-- Botões organizados -->
+    <div class="botoes-acoes">
+      <button class="botao-acoes" onclick="editarDados()">Editar Meus Dados</button>
+      <button class="botao-acoes" onclick="logout()">Sair</button>
+      <a href="painel.html" class="botao-acoes botao-link">Voltar ao Painel</a>
+    </div>
   </div>
 
   <script>
@@ -64,16 +66,16 @@
         window.location.href = "index.html";
       }
     });
+
     function editarDados() {
-  window.location.href = "formulario.html?edit=true";
-}
+      window.location.href = "formulario.html?edit=true";
+    }
 
-function logout() {
-  firebase.auth().signOut().then(() => {
-    window.location.href = "index.html";
-  });
-}
-
+    function logout() {
+      firebase.auth().signOut().then(() => {
+        window.location.href = "index.html";
+      });
+    }
   </script>
 </body>
 </html>
