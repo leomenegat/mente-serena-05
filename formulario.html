@@ -31,12 +31,11 @@
       <label for="telefone">Telefone</label>
       <input type="tel" id="telefone" name="telefone" placeholder="Seu telefone" required>
 
-      <button type="submit">Enviar</button>
+      <button type="submit">Salvar</button>
     </form>
   </div>
 
   <script>
-    // Configuração do Firebase
     const firebaseConfig = {
       apiKey: "AIzaSyB41TXDzzdU7KqpfogLHZR-jbhw8E83B3g",
       authDomain: "mente-serena-b31bf.firebaseapp.com",
@@ -48,51 +47,53 @@
       measurementId: "G-TW8NX1TSC3"
     };
 
-    // Inicializa o Firebase
     if (!firebase.apps.length) {
       firebase.initializeApp(firebaseConfig);
     }
 
-    // Verifica se usuário está logado
     firebase.auth().onAuthStateChanged(user => {
       if (!user) {
         alert("Usuário não autenticado. Redirecionando para login.");
         window.location.href = "index.html";
-      }
-    });
-
-    // Lógica para salvar dados e redirecionar
-    document.getElementById('meuFormulario').addEventListener('submit', function(e) {
-      e.preventDefault();
-
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const idade = document.getElementById('idade').value.trim();
-      const cpf = document.getElementById('cpf').value.trim();
-      const cep = document.getElementById('cep').value.trim();
-      const telefone = document.getElementById('telefone').value.trim();
-
-      const user = firebase.auth().currentUser;
-
-      if (user) {
-        const uid = user.uid;
-        firebase.database().ref('usuarios/' + uid + '/dadosPessoais').set({
-          nome: nome,
-          email: email,
-          idade: idade,
-          cpf: cpf,
-          cep: cep,
-          telefone: telefone
-        })
-        .then(() => {
-          console.log("Dados salvos com sucesso!");
-          window.location.href = "painel.html";
-        })
-        .catch(error => {
-          alert("Erro ao salvar os dados: " + error.message);
-        });
       } else {
-        alert("Usuário não autenticado!");
+        const urlParams = new URLSearchParams(window.location.search);
+        const isEditMode = urlParams.get("edit") === "true";
+        const uid = user.uid;
+        const ref = firebase.database().ref('usuarios/' + uid + '/dadosPessoais');
+
+        if (isEditMode) {
+          ref.once('value').then(snapshot => {
+            const dados = snapshot.val();
+            if (dados) {
+              document.getElementById('nome').value = dados.nome || '';
+              document.getElementById('email').value = dados.email || '';
+              document.getElementById('idade').value = dados.idade || '';
+              document.getElementById('cpf').value = dados.cpf || '';
+              document.getElementById('cep').value = dados.cep || '';
+              document.getElementById('telefone').value = dados.telefone || '';
+            }
+          });
+        }
+
+        document.getElementById('meuFormulario').addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          const nome = document.getElementById('nome').value.trim();
+          const email = document.getElementById('email').value.trim();
+          const idade = document.getElementById('idade').value.trim();
+          const cpf = document.getElementById('cpf').value.trim();
+          const cep = document.getElementById('cep').value.trim();
+          const telefone = document.getElementById('telefone').value.trim();
+
+          ref.set({ nome, email, idade, cpf, cep, telefone })
+            .then(() => {
+              alert("Dados salvos com sucesso!");
+              window.location.href = "painel.html";
+            })
+            .catch(error => {
+              alert("Erro ao salvar os dados: " + error.message);
+            });
+        });
       }
     });
   </script>
