@@ -33,7 +33,6 @@
 
   function selecionarSentimento(emoji) {
     sentimentoSelecionado = emoji;
-    // Opcional: destaque o botão selecionado
     document.querySelectorAll('.sentimento-button').forEach(btn => {
       btn.style.border = (btn.textContent === emoji) ? '3px solid #7a1fa2' : 'none';
     });
@@ -45,7 +44,10 @@
     const sentimentos = JSON.parse(localStorage.getItem('sentimentos') || '[]');
     sentimentos.forEach((item, index) => {
       const li = document.createElement('li');
-      li.innerHTML = `<span>${item.emoji} - ${item.texto}</span> <button onclick="removerSentimento(${index})">&times;</button>`;
+      li.innerHTML = `
+        <span>${item.emoji} - ${item.texto}<br><small>${item.data}</small></span>
+        <button onclick="removerSentimento(${index})">&times;</button>
+      `;
       lista.appendChild(li);
     });
   }
@@ -61,11 +63,13 @@
       return;
     }
 
+    const dataAtual = new Date().toLocaleDateString("pt-BR");
+
+
     const sentimentos = JSON.parse(localStorage.getItem('sentimentos') || '[]');
-    sentimentos.push({ emoji: sentimentoSelecionado, texto: texto });
+    sentimentos.push({ emoji: sentimentoSelecionado, texto: texto, data: dataAtual });
     localStorage.setItem('sentimentos', JSON.stringify(sentimentos));
 
-    // Limpar entrada e seleção
     document.getElementById("descricaoSentimento").value = '';
     sentimentoSelecionado = '';
     document.querySelectorAll('.sentimento-button').forEach(btn => btn.style.border = 'none');
@@ -80,7 +84,6 @@
     carregarSentimentos();
   }
 
-  // Carregar sentimentos ao abrir a página
   window.onload = carregarSentimentos;
 </script>
 </body>
